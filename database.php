@@ -39,9 +39,13 @@ class Database
     $result = $this->link->query($query) or
       die($this->link->error . __LINE__);
     if ($result->num_rows > 0) {
-      return $result;
+      $output = [];
+      while ($row =  $result->fetch_assoc()) {
+        $output[] = $row;
+      }
+      return json_encode(['success' => true, 'message' => $output]);
     } else {
-      return false;
+      return json_encode(['success' => false, 'message' => 'no data found']);
     }
   }
 

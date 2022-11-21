@@ -14,14 +14,14 @@ class Project
   {
 
     if (empty($username)) {
-      // echo json_encode(['success' => false, 'message' => 'Name can not be empty']);
-      echo "error";
+      echo json_encode(['success' => false, 'message' => 'Name can not be empty']);
+
       exit();
     } else {
       $query = "SELECT * FROM tbl_user WHERE name ='$username'";
 
-      // $getUser = $this->db->getData($query);
-      // echo json_encode($getUser);
+      $getUsers = $this->db->getData($query);
+      echo json_encode($getUsers);
       // exit();
     }
   }
