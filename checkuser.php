@@ -1,42 +1,41 @@
 <?php include 'database.php'; ?>
 
 <?php
-class project{
- private $db;
+class Project
+{
+  public $db;
 
- public function _construct(){
-  $this->db = new Database();
-}
+  public function __construct()
+  {
+    $this->db = new Database();
+  }
 
-public function checkUsername($username){
-   $query ="SELECT * FROM tbl_user WHERE name ='$username'";
-   $getuser = $this->db->getData($query);
+  public function checkUsername($username)
+  {
 
-  if ($username == ""){
-   echo "<span class ='error'>Plaese Enter Username</span>";
-   exit();
- }elseif ($getuser) {
-   echo "<span class ='error'><b>$username</b>Not Available</span>";
-   exit();
- }else{
-   echo "<span class ='error'><b>$username</b>Available</span>";
-   exit();
+    if (empty($username)) {
+      // echo json_encode(['success' => false, 'message' => 'Name can not be empty']);
+      echo "error";
+      exit();
+    } else {
+      $query = "SELECT * FROM tbl_user WHERE name ='$username'";
 
- }
-
-}
-
+      // $getUser = $this->db->getData($query);
+      // echo json_encode($getUser);
+      // exit();
+    }
+  }
 }
 
 ?>
 
 
 <?php
-$pro = new project();
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-	$username =$_POST['username'];
-	$user =$pro->checkUsername($username);
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  $pro = new Project();
+  $username = $_POST['username'];
+  $user = $pro->checkUsername($username);
 }
 
 ?>
